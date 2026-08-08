@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Experimento de Percepción de Ironía y Sarcasmo</title>
+  
+  <!-- Carga de librerías jsPsych desde CDN -->
+  <script src="https://unpkg.com/jspsych@7.3.4"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.2.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-video-button-response@1.2.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.3"></script>
+  <!-- Plugin de DataPipe -->
+  <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
+  
+  <!-- Estilos visuales estándar de jsPsych -->
+  <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
+  
+  <style>
+    body {
+      background-color: #f9f9f9;
+      font-family: Arial, sans-serif;
+    }
+    .instrucciones {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: left;
+      line-height: 1.6;
+    }
+    /* Tamaño y marco controlado para el reproductor de video */
+    video {
+      max-width: 560px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    /* Estilo para los botones de la escala Likert 1 a 5 */
+    .jspsych-btn {
+      font-size: 16px;
+      padding: 10px 18px;
+      margin: 5px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+</body>
+
+<script>
+  // 1. Inicialización de jsPsych
+  const jsPsych = initJsPsych();
+
+  // Generamos un código único de 10 caracteres para identificar a cada juez
+  const sujeto_id = jsPsych.randomization.randomID(10);
+  
+  // Lo registramos en la base de datos
+  jsPsych.data.addProperties({
+    sujeto: sujeto_id
+  });
+
+  // 2. Definición de las 4 Listas completas (40 ítems cada una)
+  const lista1 = [
+    { video: ['videos/H1_I_ECDLCDMXEL.mp4'], hablante: 'H1', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/M1_I_LCDEPEBH.mp4'], hablante: 'M1', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/H2_I_LSJUBP.mp4'], hablante: 'H2', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/H10_N_LCDEPEBH.mp4'], hablante: 'H10', condicion: 'neutro', item_id: 'LCDEPEBH' },
+    { video: ['videos/M2_I_PNFUBP.mp4'], hablante: 'M2', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/H3_I_ECDLCDMXESL.mp4'], hablante: 'H3', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/M3_I_LCDEPESBH.mp4'], hablante: 'M3', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/M1_N_LSJUSBP.mp4'], hablante: 'M1', condicion: 'neutro', item_id: 'LSJUSBP' },
+    { video: ['videos/H4_I_LSJUSBP.mp4'], hablante: 'H4', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/M6_I_PNFUSBP.mp4'], hablante: 'M6', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/H6_I_LCDEPEBH.mp4'], hablante: 'H6', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/H2_N_ECDLCDMXESL.mp4'], hablante: 'H2', condicion: 'neutro', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/M7_I_LSJUBP.mp4'], hablante: 'M7', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/H7_I_ECDLCDMXESL.mp4'], hablante: 'H7', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/M8_I_PNFUBP.mp4'], hablante: 'M8', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/M2_N_PNFUSBP.mp4'], hablante: 'M2', condicion: 'neutro', item_id: 'PNFUSBP' },
+    { video: ['videos/H8_I_LCDEPESBH.mp4'], hablante: 'H8', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/H9_I_LSJUSBP.mp4'], hablante: 'H9', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/H10_I_PNFUBP.mp4'], hablante: 'H10', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/H3_N_LSJUBP.mp4'], hablante: 'H3', condicion: 'neutro', item_id: 'LSJUBP' },
+    { video: ['videos/H11_I_ECDLCDMXESL.mp4'], hablante: 'H11', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/M1_I_PNFUSBP.mp4'], hablante: 'M1', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/H1_I_LSJUSBP.mp4'], hablante: 'H1', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/M3_N_PNFUBP.mp4'], hablante: 'M3', condicion: 'neutro', item_id: 'PNFUBP' },
+    { video: ['videos/M2_I_ECDLCDMXEL.mp4'], hablante: 'M2', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/H2_I_LCDEPESBH.mp4'], hablante: 'H2', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/M3_I_LSJUBP.mp4'], hablante: 'M3', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/H4_N_ECDLCDMXEL.mp4'], hablante: 'H4', condicion: 'neutro', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/H3_I_PNFUSBP.mp4'], hablante: 'H3', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/H4_I_ECDLCDMXESL.mp4'], hablante: 'H4', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/M6_I_LCDEPEBH.mp4'], hablante: 'M6', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/M6_N_LCDEPESBH.mp4'], hablante: 'M6', condicion: 'neutro', item_id: 'LCDEPESBH' },
+    { video: ['videos/H6_I_PNFUBP.mp4'], hablante: 'H6', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/M7_I_ECDLCDMXEL.mp4'], hablante: 'M7', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/H7_I_LCDEPESBH.mp4'], hablante: 'H7', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/H8_I_LSJUBP.mp4'], hablante: 'H8', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/M8_I_ECDLCDMXESL.mp4'], hablante: 'M8', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/H9_I_PNFUSBP.mp4'], hablante: 'H9', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/H10_I_ECDLCDMXEL.mp4'], hablante: 'H10', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/H11_I_LCDEPEBH.mp4'], hablante: 'H11', condicion: 'ironico', item_id: 'LCDEPEBH' },
+  ];
+
+  const lista2 = [
+    { video: ['videos/H1_I_ECDLCDMXESL.mp4'], hablante: 'H1', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/M1_I_LCDEPESBH.mp4'], hablante: 'M1', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/H2_I_LSJUSBP.mp4'], hablante: 'H2', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/H6_N_LCDEPEBH.mp4'], hablante: 'H6', condicion: 'neutro', item_id: 'LCDEPEBH' },
+    { video: ['videos/M2_I_PNFUSBP.mp4'], hablante: 'M2', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/H3_I_ECDLCDMXEL.mp4'], hablante: 'H3', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/M3_I_LCDEPEBH.mp4'], hablante: 'M3', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/M7_N_LSJUSBP.mp4'], hablante: 'M7', condicion: 'neutro', item_id: 'LSJUSBP' },
+    { video: ['videos/H4_I_LSJUBP.mp4'], hablante: 'H4', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/M6_I_PNFUBP.mp4'], hablante: 'M6', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/H6_I_LCDEPESBH.mp4'], hablante: 'H6', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/H7_N_ECDLCDMXESL.mp4'], hablante: 'H7', condicion: 'neutro', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/M7_I_LSJUSBP.mp4'], hablante: 'M7', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/H7_I_ECDLCDMXEL.mp4'], hablante: 'H7', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/M8_I_PNFUSBP.mp4'], hablante: 'M8', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/M8_N_ECDLCDMXESL.mp4'], hablante: 'M8', condicion: 'neutro', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/H8_I_LCDEPEBH.mp4'], hablante: 'H8', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/H9_I_LSJUBP.mp4'], hablante: 'H9', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/H10_I_PNFUSBP.mp4'], hablante: 'H10', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/H8_N_LSJUBP.mp4'], hablante: 'H8', condicion: 'neutro', item_id: 'LSJUBP' },
+    { video: ['videos/H11_I_ECDLCDMXEL.mp4'], hablante: 'H11', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/M1_I_PNFUBP.mp4'], hablante: 'M1', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/H1_I_LSJUBP.mp4'], hablante: 'H1', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/H9_N_ECLDLCDMXEL.mp4'], hablante: 'H9', condicion: 'neutro', item_id: 'ECLDLCDMXEL' },
+    { video: ['videos/M2_I_ECDLCDMXESL.mp4'], hablante: 'M2', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/H2_I_LCDEPEBH.mp4'], hablante: 'H2', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/M3_I_LSJUSBP.mp4'], hablante: 'M3', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/H11_N_ECDLCDMXESL.mp4'], hablante: 'H11', condicion: 'neutro', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/H3_I_PNFUBP.mp4'], hablante: 'H3', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/H4_I_ECDLCDMXEL.mp4'], hablante: 'H4', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/M6_I_LCDEPESBH.mp4'], hablante: 'M6', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/H6_I_PNFUSBP.mp4'], hablante: 'H6', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/M7_I_ECDLCDMXESL.mp4'], hablante: 'M7', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/H7_I_LCDEPEBH.mp4'], hablante: 'H7', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/H8_I_LSJUSBP.mp4'], hablante: 'H8', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/M8_I_ECDLCDMXEL.mp4'], hablante: 'M8', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/H9_I_PNFUBP.mp4'], hablante: 'H9', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/H10_I_ECDLCDMXESL.mp4'], hablante: 'H10', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/H11_I_LCDEPESBH.mp4'], hablante: 'H11', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/M1_I_ECLDLCDMXEL.mp4'], hablante: 'M1', condicion: 'ironico', item_id: 'ECLDLCDMXEL' },
+  ];
+
+  const lista3 = [
+    { video: ['videos/H1_I_LCDEPEBH.mp4'], hablante: 'H1', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/M1_I_LSJUBP.mp4'], hablante: 'M1', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/H2_I_PNFUBP.mp4'], hablante: 'H2', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/H10_N_LSJUSBP.mp4'], hablante: 'H10', condicion: 'neutro', item_id: 'LSJUSBP' },
+    { video: ['videos/M2_I_ECDLCDMXEL.mp4'], hablante: 'M2', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/H3_I_LCDEPEBH.mp4'], hablante: 'H3', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/M3_I_PNFUBP.mp4'], hablante: 'M3', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/M1_N_LCDEPEBH.mp4'], hablante: 'M1', condicion: 'neutro', item_id: 'LCDEPEBH' },
+    { video: ['videos/H4_I_PNFUBP.mp4'], hablante: 'H4', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/M6_I_ECDLCDMXEL.mp4'], hablante: 'M6', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/H6_I_LSJUBP.mp4'], hablante: 'H6', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/H2_N_PNFUSBP.mp4'], hablante: 'H2', condicion: 'neutro', item_id: 'PNFUSBP' },
+    { video: ['videos/M7_I_LCDEPEBH.mp4'], hablante: 'M7', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/H7_I_PNFUBP.mp4'], hablante: 'H7', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/M8_I_LSJUBP.mp4'], hablante: 'M8', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/M2_N_ECDLCDMXESL.mp4'], hablante: 'M2', condicion: 'neutro', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/H8_I_ECDLCDMXEL.mp4'], hablante: 'H8', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/H9_I_LCDEPEBH.mp4'], hablante: 'H9', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/H10_I_LSJUBP.mp4'], hablante: 'H10', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/H3_N_PNFUBP.mp4'], hablante: 'H3', condicion: 'neutro', item_id: 'PNFUBP' },
+    { video: ['videos/H11_I_PNFUBP.mp4'], hablante: 'H11', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/M1_I_ECLDLCDMXESL.mp4'], hablante: 'M1', condicion: 'ironico', item_id: 'ECLDLCDMXESL' },
+    { video: ['videos/H1_I_PNFUBP.mp4'], hablante: 'H1', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/M3_N_LSJUBP.mp4'], hablante: 'M3', condicion: 'neutro', item_id: 'LSJUBP' },
+    { video: ['videos/M2_I_LCDEPEBH.mp4'], hablante: 'M2', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/H2_I_ECDLCDMXEL.mp4'], hablante: 'H2', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/M3_I_ECDLCDMXEL.mp4'], hablante: 'M3', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/H4_N_LCDEPESBH.mp4'], hablante: 'H4', condicion: 'neutro', item_id: 'LCDEPESBH' },
+    { video: ['videos/H3_I_LSJUBP.mp4'], hablante: 'H3', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/H4_I_LCDEPEBH.mp4'], hablante: 'H4', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/M6_I_LSJUBP.mp4'], hablante: 'M6', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/M6_N_ECDLCDMXEL.mp4'], hablante: 'M6', condicion: 'neutro', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/H6_I_ECDLCDMXEL.mp4'], hablante: 'H6', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/M7_I_PNFUBP.mp4'], hablante: 'M7', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/H7_I_LSJUBP.mp4'], hablante: 'H7', condicion: 'ironico', item_id: 'LSJUBP' },
+    { video: ['videos/H8_I_PNFUBP.mp4'], hablante: 'H8', condicion: 'ironico', item_id: 'PNFUBP' },
+    { video: ['videos/M8_I_LCDEPEBH.mp4'], hablante: 'M8', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/H9_I_ECDLCDMXEL.mp4'], hablante: 'H9', condicion: 'ironico', item_id: 'ECDLCDMXEL' },
+    { video: ['videos/H10_I_LCDEPEBH.mp4'], hablante: 'H10', condicion: 'ironico', item_id: 'LCDEPEBH' },
+    { video: ['videos/H11_I_LSJUBP.mp4'], hablante: 'H11', condicion: 'ironico', item_id: 'LSJUBP' },
+  ];
+
+  const lista4 = [
+    { video: ['videos/H1_I_LCDEPESBH.mp4'], hablante: 'H1', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/M1_I_LSJUSBP.mp4'], hablante: 'M1', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/H2_I_PNFUSBP.mp4'], hablante: 'H2', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/H6_N_LSJUSBP.mp4'], hablante: 'H6', condicion: 'neutro', item_id: 'LSJUSBP' },
+    { video: ['videos/M2_I_ECDLCDMXESL.mp4'], hablante: 'M2', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/H3_I_LCDEPESBH.mp4'], hablante: 'H3', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/M3_I_PNFUSBP.mp4'], hablante: 'M3', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/M7_N_LCDEPEBH.mp4'], hablante: 'M7', condicion: 'neutro', item_id: 'LCDEPEBH' },
+    { video: ['videos/H4_I_PNFUSBP.mp4'], hablante: 'H4', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/M6_I_ECDLCDMXESL.mp4'], hablante: 'M6', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/H6_I_LSJUSBP.mp4'], hablante: 'H6', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/H7_N_PNFUSBP.mp4'], hablante: 'H7', condicion: 'neutro', item_id: 'PNFUSBP' },
+    { video: ['videos/M7_I_LCDEPESBH.mp4'], hablante: 'M7', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/H7_I_PNFUSBP.mp4'], hablante: 'H7', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/M8_I_LSJUSBP.mp4'], hablante: 'M8', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/M8_N_PNFUSBP.mp4'], hablante: 'M8', condicion: 'neutro', item_id: 'PNFUSBP' },
+    { video: ['videos/H8_I_ECDLCDMXESL.mp4'], hablante: 'H8', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/H9_I_LCDEPESBH.mp4'], hablante: 'H9', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/H10_I_LSJUSBP.mp4'], hablante: 'H10', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/H8_N_PNFUBP.mp4'], hablante: 'H8', condicion: 'neutro', item_id: 'PNFUBP' },
+    { video: ['videos/H11_I_PNFUSBP.mp4'], hablante: 'H11', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/M1_I_ECLDLCDMXEL.mp4'], hablante: 'M1', condicion: 'ironico', item_id: 'ECLDLCDMXEL' },
+    { video: ['videos/H1_I_PNFUSBP.mp4'], hablante: 'H1', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/H9_N_LCDEPESBH.mp4'], hablante: 'H9', condicion: 'neutro', item_id: 'LCDEPESBH' },
+    { video: ['videos/M2_I_LCDEPESBH.mp4'], hablante: 'M2', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/H2_I_ECDLCDMXESL.mp4'], hablante: 'H2', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/M3_I_ECDLCDMXESL.mp4'], hablante: 'M3', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/H11_N_PNDFUSBP.mp4'], hablante: 'H11', condicion: 'neutro', item_id: 'PNDFUSBP' },
+    { video: ['videos/H3_I_LSJUSBP.mp4'], hablante: 'H3', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/H4_I_LCDEPESBH.mp4'], hablante: 'H4', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/M6_I_LSJUSBP.mp4'], hablante: 'M6', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/H6_I_ECDLCDMXESL.mp4'], hablante: 'H6', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/M7_I_PNFUSBP.mp4'], hablante: 'M7', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/H7_I_LSJUSBP.mp4'], hablante: 'H7', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/H8_I_PNFUSBP.mp4'], hablante: 'H8', condicion: 'ironico', item_id: 'PNFUSBP' },
+    { video: ['videos/M8_I_LCDEPESBH.mp4'], hablante: 'M8', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/H9_I_ECDLCDMXESL.mp4'], hablante: 'H9', condicion: 'ironico', item_id: 'ECDLCDMXESL' },
+    { video: ['videos/H10_I_LCDEPESBH.mp4'], hablante: 'H10', condicion: 'ironico', item_id: 'LCDEPESBH' },
+    { video: ['videos/H11_I_LSJUSBP.mp4'], hablante: 'H11', condicion: 'ironico', item_id: 'LSJUSBP' },
+    { video: ['videos/H1_N_PNFUBP.mp4'], hablante: 'H1', condicion: 'neutro', item_id: 'PNFUBP' },
+  ];
+
+  // 3. Selección aleatoria de 1 lista por cada juez
+  const todasLasListas = [lista1, lista2, lista3, lista4];
+const listaAsignada = jsPsych.randomization.sampleWithoutReplacement(todasLasListas, 1)[0];
+
+  const videosAPrecargar = listaAsignada.map(item => item.video[0]);
+
+  jsPsych.data.addProperties({
+    lista_asignada: todasLasListas.indexOf(listaAsignada) + 1
+  });
+
+  // 4. Construcción de la Línea de Tiempo (Timeline)
+  const timeline = [];
+
+  const instrucciones = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `
+      <div class="instrucciones">
+        <h2>Bienvenido(a) al experimento de percepción lingüística</h2>
+        <p>A continuación verás una serie de videos breves. Cada video se reproducirá en un bucle continuo (loop).</p>
+        <p>Tu tarea es evaluar la intención del hablante utilizando la escala del 1 al 5:</p>
+        <ul>
+          <li><strong>1:</strong> No irónica / Totalmente literal o seria</li>
+          <li><strong>2:</strong> Ligeramente literal</li>
+          <li><strong>3:</strong> Neutral / Ambigua</li>
+          <li><strong>4:</strong> Moderadamente irónica / sarcástica</li>
+          <li><strong>5:</strong> Totalmente irónica / sarcástica</li>
+        </ul>
+        <p>Por favor, asegúrate de tener el audio de tu dispositivo activado.</p>
+      </div>
+    `,
+    choices: ['Comenzar experimento']
+  };
+  timeline.push(instrucciones);
+
+  const precarga = {
+    type: jsPsychPreload,
+    video: videosAPrecargar,
+    message: 'Cargando los videos del experimento... Por favor espera un momento.',
+    error_message: 'Ocurrió un error al cargar los estímulos multimedia.'
+  };
+  timeline.push(precarga);
+
+  const ensayoVideo = {
+    type: jsPsychVideoButtonResponse,
+    stimulus: jsPsych.timelineVariable('video'),
+    choices: ['1', '2', '3', '4', '5'],
+    prompt: `
+      <p style="font-size: 18px; margin-top: 15px; font-weight: bold;">
+        ¿Qué tan irónica o sarcástica es la intención del hablante?
+      </p>
+      <p style="font-size: 13px; color: #666;">
+        (1 = No irónica / Literal | 5 = Totalmente irónica / Sarcástica)
+      </p>
+    `,
+    autoplay: true,
+    controls: false,           
+    response_ends_trial: true, 
+    trial_ends_after_video: false,
+    on_load: function() {
+      const reproductor = document.querySelector('video');
+      if (reproductor) {
+        reproductor.loop = true;
+      }
+    },
+    data: {
+      hablante: jsPsych.timelineVariable('hablante'),
+      condicion: jsPsych.timelineVariable('condicion'),
+      item_id: jsPsych.timelineVariable('item_id')
+    }
+  };
+
+  const bloqueExperimental = {
+    timeline: [ensayoVideo],
+    timeline_variables: listaAsignada,
+    randomize_order: true 
+  };
+  timeline.push(bloqueExperimental);
+
+  // PANTALLA SECRETA: Envío de datos a OSF 
+  const guardar_datos = {
+    type: jsPsychPipe,
+    action: "save",
+    experiment_id: "Lf2zVvNOTphY", // SUSTITUYE POR TU CÓDIGO DE 12 CARACTERES DE DATAPIPE
+    filename: `${sujeto_id}.csv`,
+    data_string: () => jsPsych.data.get().csv()
+  };
+  timeline.push(guardar_datos);
+
+  const cierre = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `
+      <h2>¡Muchas gracias por tu participación!</h2>
+      <p>Tus respuestas han sido enviadas y registradas de forma segura.</p>
+    `,
+    choices: ['Cerrar']
+  };
+  timeline.push(cierre);
+
+  jsPsych.run(timeline);
+</script>
+</html>
