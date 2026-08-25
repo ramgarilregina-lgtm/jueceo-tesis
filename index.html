@@ -246,47 +246,72 @@ const listaAsignada = jsPsych.randomization.sampleWithoutReplacement(todasLasLis
 
 var formulario_demografico = {
     type: jsPsychSurveyHtmlForm,
-    preamble: '<h3>Datos Demográficos y Consentimiento</h3><p>Por favor, completa la siguiente información antes de comenzar el experimento.</p>',
+    preamble: '<h2>AVISO DE PRIVACIDAD Y CONSENTIMIENTO INFORMADO</h2>',
     html: `
-        <div style="text-align: left; max-width: 450px; margin: 0 auto; background: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #e0e0e0; font-family: sans-serif;">
+        <div style="text-align: left; max-width: 800px; margin: 0 auto; background: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #e0e0e0; font-family: sans-serif;">
             
-            <!-- 1. Consentimiento / Mayoría de edad -->
-            <div style="margin-bottom: 20px;">
-                <input type="checkbox" id="mayor_edad" name="mayor_edad" value="Si" required>
-                <label for="mayor_edad"><b>Declaro que tengo 18 años o más y acepto participar voluntariamente.</b></label>
-            </div>
-            
-            <!-- 2. Sexo / Identidad de género -->
-            <div style="margin-bottom: 20px;">
-                <p style="margin-bottom: 8px;"><b>Sexo / Identidad de género:</b></p>
-                <input type="radio" id="mujer" name="genero" value="Mujer" required>
-                <label for="mujer">Mujer</label><br>
+            <!-- Caja de texto con scroll para el consentimiento -->
+            <div style="max-height: 250px; overflow-y: auto; border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; background: #ffffff; font-size: 14px; line-height: 1.6;">
+                <h3 style="margin-top: 0;">Tarea de Percepción Lingüística</h3>
                 
-                <input type="radio" id="hombre" name="genero" value="Hombre" required>
-                <label for="hombre">Hombre</label><br>
+                <p><strong>1. Responsable del Estudio</strong><br>
+                El presente estudio forma parte del proyecto de investigación de posgrado sobre percepción y factores multimodales en el español mexicano, desarrollado por el Dr. Luis Miguel Sánchez Loyo, profesor titular e investigador de la Maestría en Lingüística Aplicada (MLA) de la Universidad de Guadalajara (UDG) y jefe del Departamento de Estudios en Lenguas Indígenas, en conjunto con la LLE. Ilse Regina Ramírez García, estudiante de la MLA de la UDG con código 325058887.</p>
                 
-                <input type="radio" id="nobinario" name="genero" value="No binario" required>
-                <label for="nobinario">No binario</label><br>
+                <p><strong>2. Objetivos</strong><br>
+                El propósito del presente ejercicio es recopilar juicios de percepción sobre la intención comunicativa de ironía o sarcasmo en estímulos audiovisuales cortos. La actividad consiste en observar una serie de videos y evaluar cada uno mediante escalas de calificación (escalas Likert). La duración estimada de la tarea es de aproximadamente 15 minutos.</p>
                 
-                <input type="radio" id="otro" name="genero" value="Otro" required>
-                <label for="otro">Otro / Prefiero no especificar</label>
+                <p><strong>3. Datos Recabados</strong><br>
+                Para fines de caracterización sociodemográfica y estadística, únicamente se solicitarán los siguientes datos:</p>
+                <ul style="margin-top: 0;">
+                    <li>Confirmación de mayoría de edad (mayor de 18 años).</li>
+                    <li>Sexo.</li>
+                    <li>Nivel máximo de estudios / Escolaridad.</li>
+                </ul>
+                
+                <p><strong>4. Confidencialidad</strong><br>
+                No se solicitarán nombres, correos electrónicos, direcciones IP ni datos de identificación personal. La participación es completamente anónima y los datos sociodemográficos y respuestas recolectadas se procesarán de manera agregada e impersonal exclusivamente para fines de investigación académica, publicaciones científicas y tesis de grado.</p>
+                
+                <p><strong>5. Voluntariedad</strong><br>
+                La participación en esta tarea es totalmente libre y voluntaria. Usted puede abandonar la prueba o cerrar la pestaña del navegador en cualquier momento antes de enviar sus respuestas finales, sin que ello genere consecuencia alguna.</p>
+                
+                <p><strong>6. Retribución</strong><br>
+                Al finalizar la evaluación de los estímulos, tendrá acceso a material audiovisual o infográfico exclusivo de divulgación científica, donde se detallan aspectos clave sobre cómo procesamos los gestos y la entonación en la comunicación cotidiana.</p>
             </div>
 
-            <!-- 3. Escolaridad -->
-            <div style="margin-bottom: 15px;">
-                <label for="escolaridad"><b>Último nivel de estudios (cursado o en curso):</b></label><br>
-                <select id="escolaridad" name="escolaridad" required style="width: 100%; margin-top: 8px; padding: 8px; border-radius: 4px; border: 1px solid #ccc; background: #fff;">
-                    <option value="" disabled selected>Selecciona una opción</option>
-                    <option value="Secundaria">Secundaria o equivalente</option>
-                    <option value="Preparatoria">Preparatoria / Bachillerato</option>
-                    <option value="Licenciatura">Licenciatura / Ingeniería</option>
-                    <option value="Posgrado">Posgrado (Especialidad / Maestría / Doctorado)</option>
-                </select>
+            <!-- Checkbox de Consentimiento (Obligatorio) -->
+            <div style="margin-bottom: 25px; padding: 15px; background: #e8f4f8; border-left: 4px solid #0078d4;">
+                <p style="margin-top: 0; margin-bottom: 10px;"><strong>DECLARACIÓN DE CONSENTIMIENTO INFORMADO</strong><br>Al marcar la casilla inferior, confirmo que he leído y comprendido los términos, declaro tener al menos 18 años y acepto participar de forma anónima.</p>
+                <input type="checkbox" id="consentimiento" name="consentimiento" value="Aceptado" required style="transform: scale(1.2); margin-right: 8px;">
+                <label for="consentimiento"><b>He leído, comprendo y acepto participar bajo las condiciones descritas.</b></label>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
+            
+            <!-- Datos Demográficos (Obligatorios) -->
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div style="flex: 1; min-width: 200px;">
+                    <p style="margin-top: 0; margin-bottom: 8px;"><b>Sexo / Identidad de género:</b></p>
+                    <input type="radio" id="mujer" name="genero" value="Mujer" required> <label for="mujer">Mujer</label><br>
+                    <input type="radio" id="hombre" name="genero" value="Hombre" required> <label for="hombre">Hombre</label><br>
+                    <input type="radio" id="nobinario" name="genero" value="No binario" required> <label for="nobinario">No binario</label><br>
+                    <input type="radio" id="otro" name="genero" value="Otro" required> <label for="otro">Otro / Prefiero no especificar</label>
+                </div>
+
+                <div style="flex: 1; min-width: 250px;">
+                    <label for="escolaridad" style="display: block; margin-bottom: 8px;"><b>Último nivel de estudios:</b></label>
+                    <select id="escolaridad" name="escolaridad" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="Secundaria">Secundaria o equivalente</option>
+                        <option value="Preparatoria">Preparatoria / Bachillerato</option>
+                        <option value="Licenciatura">Licenciatura / Ingeniería</option>
+                        <option value="Posgrado">Posgrado (Especialidad / Maestría / Doctorado)</option>
+                    </select>
+                </div>
             </div>
 
         </div>
     `,
-    button_label: 'Continuar al experimento'
+    button_label: 'COMENZAR'
 };
 
   const instrucciones = {
