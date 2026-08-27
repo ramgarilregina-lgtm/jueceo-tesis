@@ -278,7 +278,7 @@ var formulario_demografico = {
                 Al finalizar la evaluación de los estímulos, tendrá acceso a material de divulgación científica, donde se detallan aspectos clave sobre cómo procesamos los gestos y la entonación en la comunicación cotidiana.</p>
 
                 <p><strong>7. Contacto</strong><br>
-                En caso de dudas sobre este estudio o si desea conocer los resultados finales, puedes enviar un mensaje al correo: <strong>percepcionlinguistica@gmail.com</strong></p>
+                En caso de dudas sobre este estudio o si desea conocer los resultados finales, puede enviar un mensaje al correo: <strong>percepcionlinguistica@gmail.com</strong></p>
             </div>
 
             <!-- Checkbox de Consentimiento (Obligatorio) -->
@@ -292,7 +292,7 @@ var formulario_demografico = {
 <!-- Preguntas Filtro y Demográficas -->
             <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 15px;">
                 <div style="flex: 1; min-width: 200px;">
-                    <p style="margin-top: 0; margin-bottom: 8px;"><b>¿Tienes 18 años cumplidos o más?</b></p>
+                    <p style="margin-top: 0; margin-bottom: 8px;"><b>¿Tiene 18 años cumplidos o más?</b></p>
                     <input type="radio" id="edad_si" name="filtro_edad" value="Si" required> <label for="edad_si">Sí</label><br>
                     <input type="radio" id="edad_no" name="filtro_edad" value="No" required> <label for="edad_no">No</label>
                 </div>
@@ -316,7 +316,7 @@ var formulario_demografico = {
                 <div style="flex: 1; min-width: 250px;">
                     <label for="escolaridad" style="display: block; margin-bottom: 8px;"><b>Último nivel de estudios:</b></label>
                     <select id="escolaridad" name="escolaridad" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
-                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="" disabled selected>Seleccione una opción</option>
                         <option value="Secundaria">Secundaria o equivalente</option>
                         <option value="Preparatoria">Preparatoria / Bachillerato</option>
                         <option value="Licenciatura">Licenciatura / Ingeniería</option>
@@ -334,7 +334,7 @@ var formulario_demografico = {
                 <div style="max-width: 600px; margin: 50px auto; text-align: center; font-family: sans-serif; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
                     <h2 style="color: #d9534f;">Aviso Importante</h2>
                     <p style="font-size: 16px; line-height: 1.5;">Lamentablemente, por los criterios metodológicos de este estudio, solo podemos incluir respuestas de personas mayores de edad cuya lengua materna sea el español mexicano.</p>
-                    <p style="font-size: 16px;">Agradecemos muchísimo tu tiempo y disposición.</p>
+                    <p style="font-size: 16px;">Agradecemos muchísimo su tiempo y disposición.</p>
                     <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
                     <p style="font-size: 14px; color: #777;">Contacto: percepcionlinguistica@gmail.com</p>
                 </div>
@@ -348,8 +348,8 @@ var formulario_demografico = {
     stimulus: `
       <div class="instrucciones">
         <h2>Bienvenido(a) al experimento de percepción lingüística</h2>
-        <p>A continuación verás una serie de videos breves. Cada video se reproducirá en un bucle continuo (loop).</p>
-        <p>Tu tarea es evaluar la intención del hablante utilizando la escala del 1 al 5:</p>
+        <p>A continuación verá una serie de videos breves. Cada video se reproducirá en un bucle continuo (loop).</p>
+        <p>Su tarea es evaluar la intención del hablante utilizando la escala del 1 al 5:</p>
         <ul>
           <li><strong>1:</strong> No irónica / Totalmente literal o seria</li>
           <li><strong>2:</strong> Ligeramente literal</li>
@@ -357,7 +357,7 @@ var formulario_demografico = {
           <li><strong>4:</strong> Moderadamente irónica / sarcástica</li>
           <li><strong>5:</strong> Totalmente irónica / sarcástica</li>
         </ul>
-        <p>Por favor, asegúrate de tener el audio de tu dispositivo activado.</p>
+        <p>Por favor, asegúrese de tener el audio de su dispositivo activado.</p>
       </div>
     `,
     choices: ['Comenzar experimento']
@@ -369,7 +369,7 @@ var formulario_demografico = {
   const precarga = {
     type: jsPsychPreload,
     video: videosAPrecargar,
-    message: 'Cargando los videos del experimento... Por favor espera un momento.',
+    message: 'Cargando los videos del experimento... Por favor espere un momento.',
     error_message: 'Ocurrió un error al cargar los estímulos multimedia.'
   };
   timeline.push(precarga);
@@ -425,13 +425,13 @@ var formulario_demografico = {
     stimulus: `
         <div style="max-width: 650px; margin: 0 auto; text-align: center; font-family: sans-serif; line-height: 1.6; background: #fff; padding: 30px; border-radius: 8px; border: 1px solid #e0e0e0;">
             
-            <h2 style="color: #2e7d32;">¡Muchas gracias por tu participación!</h2>
-            <p style="font-size: 16px;">Tus respuestas han sido enviadas y registradas de forma segura.</p>
+            <h2 style="color: #2e7d32;">¡Muchas gracias por su participación!</h2>
+            <p style="font-size: 16px;">Sus respuestas han sido enviadas y registradas de forma segura.</p>
             
             <hr style="border: 0; border-top: 1px solid #ddd; margin: 25px 0;">
             
             <h3 style="color: #0056b3;">Retribución</h3>
-            <p>Como agradecimiento por tu tiempo, te invitamos a revisar este material en formato podcast donde exploramos la presente investigación:</p>
+            <p>Como agradecimiento por su tiempo, le invitamos a revisar este material en formato podcast donde se explora la presente investigación:</p>
             
             <!-- Cambia el enlace "LINK_AQUI" por tu enlace real de Drive, YouTube, Spotify, etc. -->
             <a href="LINK_AQUI" target="_blank" style="display: inline-block; margin-top: 10px; padding: 12px 24px; background-color: #0078d4; color: white; text-decoration: none; font-weight: bold; border-radius: 5px; transition: background 0.3s;">
@@ -441,7 +441,7 @@ var formulario_demografico = {
             <hr style="border: 0; border-top: 1px solid #ddd; margin: 25px 0;">
             
             <p style="font-size: 14px; color: #555; background: #f9f9f9; padding: 15px; border-radius: 5px;">
-                Si tienes alguna duda sobre el estudio o te interesa conocer los resultados estadísticos finales, no dudes en enviar un mensaje a:<br>
+                Si tiene alguna duda sobre el estudio o le interesa conocer los resultados estadísticos finales, no dude en enviar un mensaje a:<br>
                 <strong>percepcionlinguistica@gmail.com</strong>
             </p>
             
